@@ -37,6 +37,21 @@ mvn -Djavafx.platform=win javafx:run
 
 > Si vous utilisez une autre plateforme, adaptez `javafx.platform` à `mac`, `linux` ou `win` selon votre système.
 
+## Lancement de l'application
+Vous pouvez lancer directement l'application avec Maven après compilation.
+
+### Sous Linux / macOS
+```bash
+mvn -Djavafx.platform=linux javafx:run
+```
+
+### Sous Windows
+```powershell
+mvn -Djavafx.platform=win javafx:run
+```
+
+Si vous avez déjà empaqueté l'application avec `mvn clean package`, vous pourrez exécuter le JAR généré avec Java 21. En fonction de la façon dont vous avez construit le projet, l’utilisation de JavaFX via un JAR autonome peut nécessiter des options `--module-path` et `--add-modules`.
+
 ## Construction du projet
 
 ```bash
