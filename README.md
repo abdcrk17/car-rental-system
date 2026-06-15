@@ -42,29 +42,3 @@ mvn -Djavafx.platform=win javafx:run
 ```bash
 mvn clean package
 ```
-
-## Organisation GitHub
-Avant de pousser vers GitHub, initialisez le dépôt si nécessaire :
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-Ensuite, ajoutez l’URL du dépôt distant :
-
-```bash
-git remote add origin https://github.com/votre-utilisateur/votre-repo.git
-```
-
-Et poussez :
-
-```bash
-git branch -M main
-git push -u origin main
-```
-
-## Notes
-- Ce projet est une application de bureau JavaFX. L’exécution dans un conteneur Docker est possible, mais l’affichage graphique requiert une configuration spécifique hors du conteneur.
-- Le projet ne contient pas de tests unitaires actuellement.
