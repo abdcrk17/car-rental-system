@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="700.0" spacing="20.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label styleClass="title-label" text="Gestion des Clients" />
+      
+      <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="clientTable" prefHeight="200.0" prefWidth="450.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colNom" prefWidth="100.0" text="Nom" />
+                <TableColumn fx:id="colPrenom" prefWidth="100.0" text="Prénom" />
+                  <TableColumn fx:id="colCin" prefWidth="100.0" text="CIN" />
+                  <TableColumn fx:id="colTelephone" prefWidth="100.0" text="Téléphone" />
+              </columns>
+            </TableView>
+            
+            <VBox prefWidth="250.0" styleClass="form-vbox">
+               <children>
+                  <Label text="Détails du client" />
+                  <TextField fx:id="txtNom" promptText="Nom" />
+                  <TextField fx:id="txtPrenom" promptText="Prénom" />
+                  <TextField fx:id="txtCin" promptText="CIN" />
+                  <TextField fx:id="txtTelephone" promptText="Téléphone" />
+                  <TextField fx:id="txtPermis" promptText="Numéro de Permis" />
+                  
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleAdd" styleClass="action-button" text="Ajouter" />
+                        <Button mnemonicParsing="false" onAction="#handleUpdate" styleClass="action-button" text="Modifier" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#handleDelete" prefWidth="210.0" styleClass="action-button, delete-button" text="Supprimer">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="700.0" spacing="20.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VoitureController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label styleClass="title-label" text="Gestion des Voitures" />
+      
+      <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="voitureTable" prefHeight="200.0" prefWidth="450.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colMarque" prefWidth="100.0" text="Marque" />
+                <TableColumn fx:id="colModele" prefWidth="100.0" text="Modèle" />
+                  <TableColumn fx:id="colImmatriculation" prefWidth="100.0" text="Immat." />
+                  <TableColumn fx:id="colStatut" prefWidth="100.0" text="Statut" />
+              </columns>
+            </TableView>
+            
+            <VBox prefWidth="250.0" styleClass="form-vbox">
+               <children>
+                  <Label text="Détails de la voiture" />
+                  <TextField fx:id="txtMarque" promptText="Marque" />
+                  <TextField fx:id="txtModele" promptText="Modèle" />
+                  <TextField fx:id="txtImmatriculation" promptText="Immatriculation" />
+                  <TextField fx:id="txtAnnee" promptText="Année" />
+                  <TextField fx:id="txtKilometrage" promptText="Kilométrage" />
+                  <TextField fx:id="txtPrix" promptText="Prix journalier" />
+                  <ComboBox fx:id="comboStatut" prefWidth="210.0" promptText="Statut" />
+                  
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleAdd" styleClass="action-button" text="Ajouter" />
+                        <Button mnemonicParsing="false" onAction="#handleUpdate" styleClass="action-button" text="Modifier" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#handleDelete" prefWidth="210.0" styleClass="action-button, delete-button" text="Supprimer">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
