@@ -3,6 +3,7 @@ controllers/ClientController.class
 models/DatabaseConnection.class
 controllers/LocationController.class
 controllers/MainController.class
+utils/CSVExporter.class
 models/VoitureDAO.class
 controllers/DashboardController.class
 models/Voiture.class
@@ -14,5 +15,6 @@ Main.class
 models/Location.class
 Launcher.class
 models/UserDAO.class
+utils/ThemeManager.class
 models/ClientDAO.class
 models/Client.class

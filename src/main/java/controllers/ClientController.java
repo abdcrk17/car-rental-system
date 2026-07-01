@@ -11,6 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.Client;
 import models.ClientDAO;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.sql.SQLException;
 
 public class ClientController {
@@ -22,6 +26,7 @@ public class ClientController {
     @FXML private TableColumn<Client, String> colCin;
     @FXML private TableColumn<Client, String> colTelephone;
 
+    @FXML private TextField searchField;
     @FXML private TextField txtNom;
     @FXML private TextField txtPrenom;
     @FXML private TextField txtCin;
@@ -39,7 +44,22 @@ public class ClientController {
         colCin.setCellValueFactory(new PropertyValueFactory<>("cin"));
         colTelephone.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         
-        clientTable.setItems(clientList);
+        FilteredList<Client> filteredData = new FilteredList<>(clientList, b -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(client -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return client.getNom().toLowerCase().contains(lowerCaseFilter) ||
+                       client.getPrenom().toLowerCase().contains(lowerCaseFilter) ||
+                       client.getCin().toLowerCase().contains(lowerCaseFilter);
+            });
+        });
+        
+        SortedList<Client> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(clientTable.comparatorProperty());
+        clientTable.setItems(sortedData);
         
         clientTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> showClientDetails(newValue));
@@ -118,6 +138,15 @@ public class ClientController {
                 showAlert("Erreur", "Impossible de supprimer le client (peut-être lié à une location).");
             }
         }
+    }
+
+    @FXML
+    public void handleExportCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Enregistrer CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers CSV", "*.csv"));
+        File file = fileChooser.showSaveDialog(clientTable.getScene().getWindow());
+        utils.CSVExporter.exportToCSV(clientTable, file);
     }
 
     private void clearFields() {

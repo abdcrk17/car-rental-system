@@ -303,3 +303,19 @@
 .chart-pie-label {
     -fx-fill: white;
 }
+
+/* Form Sections */
+.section-subtitle {
+    -fx-text-fill: #A6ADC8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.secondary-button {
+    -fx-background-color: #313244;
+    -fx-text-fill: #CDD6F4;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #45475a;
+}

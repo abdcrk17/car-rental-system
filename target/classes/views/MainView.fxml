@@ -26,6 +26,7 @@
             <Button mnemonicParsing="false" onAction="#handleMenuLocations" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="📝 Locations" />
             
             <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="btnTheme" mnemonicParsing="false" onAction="#handleToggleTheme" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button" text="🌓 Mode Clair" />
             <Button mnemonicParsing="false" onAction="#handleLogout" prefHeight="40.0" prefWidth="200.0" styleClass="nav-button, logout-button" text="🚪 Déconnexion" />
          </children>
       </VBox>

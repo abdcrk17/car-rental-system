@@ -4,15 +4,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import utils.ThemeManager;
 import java.io.IOException;
 
 public class MainController {
 
     @FXML
     private BorderPane mainPane;
+    
+    @FXML
+    private Button btnTheme;
 
     @FXML
     public void initialize() {
+        // Appliquer le thème initial
+        ThemeManager.applyTheme(mainPane);
+        updateThemeButton();
+        
         // Load the default view (Dashboard)
         loadView("DashboardView.fxml");
     }
@@ -38,6 +47,24 @@ public class MainController {
     }
 
     @FXML
+    public void handleToggleTheme() {
+        ThemeManager.toggleTheme();
+        ThemeManager.applyTheme(mainPane);
+        updateThemeButton();
+        
+        // Rafraîchir la vue courante (optionnel, mais on recharge le centre)
+        if (mainPane.getCenter() instanceof Pane) {
+            ThemeManager.applyTheme((Pane) mainPane.getCenter());
+        }
+    }
+
+    private void updateThemeButton() {
+        if (btnTheme != null) {
+            btnTheme.setText(ThemeManager.isDarkTheme() ? "🌓 Mode Clair" : "🌙 Mode Sombre");
+        }
+    }
+
+    @FXML
     public void handleLogout() {
         try {
             javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
@@ -57,6 +84,9 @@ public class MainController {
             // Initial position and opacity for animation
             view.setOpacity(0);
             view.setTranslateY(10);
+            
+            // Appliquer le thème à la vue enfant
+            ThemeManager.applyTheme(view);
             
             mainPane.setCenter(view);
             

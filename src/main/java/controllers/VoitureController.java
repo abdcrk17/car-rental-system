@@ -12,6 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.Voiture;
 import models.VoitureDAO;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.sql.SQLException;
 
 public class VoitureController {
@@ -23,6 +27,7 @@ public class VoitureController {
     @FXML private TableColumn<Voiture, String> colImmatriculation;
     @FXML private TableColumn<Voiture, String> colStatut;
 
+    @FXML private TextField searchField;
     @FXML private TextField txtMarque;
     @FXML private TextField txtModele;
     @FXML private TextField txtImmatriculation;
@@ -44,7 +49,22 @@ public class VoitureController {
         colImmatriculation.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         colStatut.setCellValueFactory(new PropertyValueFactory<>("statut"));
         
-        voitureTable.setItems(voitureList);
+        FilteredList<Voiture> filteredData = new FilteredList<>(voitureList, b -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(voiture -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return voiture.getMarque().toLowerCase().contains(lowerCaseFilter) ||
+                       voiture.getModele().toLowerCase().contains(lowerCaseFilter) ||
+                       voiture.getImmatriculation().toLowerCase().contains(lowerCaseFilter);
+            });
+        });
+        
+        SortedList<Voiture> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(voitureTable.comparatorProperty());
+        voitureTable.setItems(sortedData);
         
         voitureTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> showVoitureDetails(newValue));
@@ -129,6 +149,15 @@ public class VoitureController {
                 showAlert("Erreur", "Impossible de supprimer la voiture (peut-être liée à une location).");
             }
         }
+    }
+
+    @FXML
+    public void handleExportCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Enregistrer CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers CSV", "*.csv"));
+        File file = fileChooser.showSaveDialog(voitureTable.getScene().getWindow());
+        utils.CSVExporter.exportToCSV(voitureTable, file);
     }
 
     private void clearFields() {

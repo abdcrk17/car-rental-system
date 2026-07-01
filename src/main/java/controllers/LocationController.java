@@ -8,6 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.*;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -22,12 +26,12 @@ public class LocationController {
     @FXML private TableColumn<Location, Double> colPrixTotal;
     @FXML private TableColumn<Location, String> colStatut;
 
+    @FXML private TextField searchField;
     @FXML private DatePicker dateDebut;
     @FXML private DatePicker dateFin;
     @FXML private ComboBox<Voiture> comboVoiture;
     @FXML private ComboBox<Client> comboClient;
     @FXML private TextField txtPrixTotal;
-    @FXML private ComboBox<String> comboStatut;
 
     private LocationDAO locationDAO = new LocationDAO();
     private VoitureDAO voitureDAO = new VoitureDAO();
@@ -37,7 +41,6 @@ public class LocationController {
 
     @FXML
     public void initialize() {
-        comboStatut.setItems(FXCollections.observableArrayList("En cours", "Terminée"));
         
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colVoiture.setCellValueFactory(cellData -> 
@@ -49,7 +52,22 @@ public class LocationController {
         colPrixTotal.setCellValueFactory(new PropertyValueFactory<>("prixTotal"));
         colStatut.setCellValueFactory(new PropertyValueFactory<>("statut"));
         
-        locationTable.setItems(locationList);
+        FilteredList<Location> filteredData = new FilteredList<>(locationList, b -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(location -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                boolean matchVoiture = location.getVoiture() != null && location.getVoiture().toString().toLowerCase().contains(lowerCaseFilter);
+                boolean matchClient = location.getClient() != null && location.getClient().toString().toLowerCase().contains(lowerCaseFilter);
+                return matchVoiture || matchClient;
+            });
+        });
+        
+        SortedList<Location> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(locationTable.comparatorProperty());
+        locationTable.setItems(sortedData);
         
         locationTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> showLocationDetails(newValue));
@@ -91,7 +109,6 @@ public class LocationController {
             comboVoiture.setValue(location.getVoiture());
             comboClient.setValue(location.getClient());
             txtPrixTotal.setText(String.valueOf(location.getPrixTotal()));
-            comboStatut.setValue(location.getStatut());
         } else {
             clearFields();
         }
@@ -142,18 +159,21 @@ public class LocationController {
             if (txtPrixTotal.getText().isEmpty()) {
                 handleCalculPrix();
             }
+            
+            String calculatedStatus = LocalDate.now().isAfter(dateFin.getValue()) ? "Terminée" : "En cours";
+            
             Location loc = new Location(
                 comboVoiture.getValue().getId(),
                 comboClient.getValue().getId(),
                 dateDebut.getValue(),
                 dateFin.getValue(),
                 Double.parseDouble(txtPrixTotal.getText()),
-                comboStatut.getValue() != null ? comboStatut.getValue() : "En cours"
+                calculatedStatus
             );
             locationDAO.add(loc);
             
             // Si la location est en cours, mettre à jour le statut de la voiture
-            if ("En cours".equals(loc.getStatut())) {
+            if ("En cours".equals(calculatedStatus)) {
                 Voiture v = comboVoiture.getValue();
                 v.setStatut("Louée");
                 voitureDAO.update(v);
@@ -179,12 +199,13 @@ public class LocationController {
                 selected.setPrixTotal(Double.parseDouble(txtPrixTotal.getText()));
                 
                 String oldStatut = selected.getStatut();
-                selected.setStatut(comboStatut.getValue());
+                String newStatut = LocalDate.now().isAfter(dateFin.getValue()) ? "Terminée" : "En cours";
+                selected.setStatut(newStatut);
                 
                 locationDAO.update(selected);
                 
                 // Mettre à jour le statut de la voiture si la location est terminée
-                if ("En cours".equals(oldStatut) && "Terminée".equals(selected.getStatut())) {
+                if ("En cours".equals(oldStatut) && "Terminée".equals(newStatut)) {
                     Voiture v = comboVoiture.getValue();
                     v.setStatut("Disponible");
                     voitureDAO.update(v);
@@ -213,13 +234,21 @@ public class LocationController {
         }
     }
 
+    @FXML
+    public void handleExportCSV() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Enregistrer CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers CSV", "*.csv"));
+        File file = fileChooser.showSaveDialog(locationTable.getScene().getWindow());
+        utils.CSVExporter.exportToCSV(locationTable, file);
+    }
+
     private void clearFields() {
         dateDebut.setValue(null);
         dateFin.setValue(null);
         comboVoiture.setValue(null);
         comboClient.setValue(null);
         txtPrixTotal.clear();
-        comboStatut.setValue(null);
     }
 
     private void showAlert(String title, String message) {

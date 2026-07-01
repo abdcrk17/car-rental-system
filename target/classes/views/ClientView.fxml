@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="600.0" prefWidth="700.0" spacing="20.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientController">
@@ -15,6 +16,14 @@
    </padding>
    <children>
       <Label styleClass="title-label" text="Gestion des Clients" />
+      
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <TextField fx:id="searchField" prefWidth="300.0" promptText="Rechercher..." styleClass="search-field" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleExportCSV" styleClass="action-button, export-button" text="📥 Exporter CSV" />
+         </children>
+      </HBox>
       
       <HBox spacing="20.0" VBox.vgrow="ALWAYS">
          <children>
@@ -31,7 +40,7 @@
               </columnResizePolicy>
             </TableView>
             
-            <VBox prefWidth="250.0" styleClass="form-vbox">
+            <VBox prefWidth="300.0" styleClass="form-vbox">
                <children>
                   <Label text="Détails du client" />
                   <TextField fx:id="txtNom" promptText="Nom" />

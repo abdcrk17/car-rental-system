@@ -4,7 +4,7 @@
 
 /* Base Styles */
 .root {
-    -fx-background-color: #1E1E2E;
+    -fx-background-color: #F4F5F7;
     -fx-font-family: 'Segoe UI', 'Inter', sans-serif;
 }
 
@@ -12,32 +12,32 @@
    Login Screen
    ========================================================================== */
 .login-root {
-    -fx-background-color: linear-gradient(to bottom right, #181825, #1E1E2E);
+    -fx-background-color: linear-gradient(to bottom right, #FFFFFF, #F4F5F7);
 }
 
 .login-box {
-    -fx-background-color: #27273A;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 15;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 20, 0, 0, 10);
-    -fx-border-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: rgba(0, 0, 0, 0.05);
     -fx-border-radius: 15;
     -fx-border-width: 1;
 }
 
 .login-title {
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
 }
 
 .login-subtitle {
-    -fx-text-fill: #A6ADC8;
+    -fx-text-fill: #475569;
 }
 
 .login-field {
-    -fx-background-color: #181825;
-    -fx-text-fill: #CDD6F4;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E293B;
     -fx-prompt-text-fill: #585b70;
     -fx-background-radius: 8;
-    -fx-border-color: #313244;
+    -fx-border-color: #E2E8F0;
     -fx-border-radius: 8;
     -fx-padding: 10;
 }
@@ -49,7 +49,7 @@
 
 .login-button {
     -fx-background-color: #6C5CE7;
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-background-radius: 8;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(108, 92, 231, 0.4), 10, 0, 0, 4);
@@ -67,15 +67,15 @@
    Sidebar & Navigation
    ========================================================================== */
 .sidebar {
-    -fx-background-color: #181825;
+    -fx-background-color: #FFFFFF;
     -fx-padding: 20 0 0 0;
     -fx-border-width: 0 1 0 0;
-    -fx-border-color: #313244;
+    -fx-border-color: #E2E8F0;
 }
 
 .nav-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #A6ADC8;
+    -fx-text-fill: #475569;
     -fx-alignment: center-left;
     -fx-padding: 10 10 10 30;
     -fx-font-size: 14px;
@@ -84,8 +84,8 @@
 }
 
 .nav-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-text-fill: white;
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-text-fill: #0F172A;
 }
 
 .nav-button:pressed, .nav-button:focused {
@@ -99,12 +99,12 @@
    Main Content Area
    ========================================================================== */
 .main-content {
-    -fx-background-color: #1E1E2E;
+    -fx-background-color: #F4F5F7;
     -fx-padding: 30;
 }
 
 .title-label {
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
@@ -122,25 +122,25 @@
    Forms & Controls
    ========================================================================== */
 .form-vbox {
-    -fx-background-color: #27273A;
+    -fx-background-color: #FFFFFF;
     -fx-padding: 20;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
 }
 
 .form-vbox .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 15 0;
 }
 
 .text-field {
-    -fx-background-color: #181825;
-    -fx-text-fill: #CDD6F4;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E293B;
     -fx-prompt-text-fill: #585b70;
     -fx-background-radius: 6;
-    -fx-border-color: #313244;
+    -fx-border-color: #E2E8F0;
     -fx-border-radius: 6;
     -fx-padding: 8;
 }
@@ -151,7 +151,7 @@
 
 .action-button {
     -fx-background-color: #6C5CE7;
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-background-radius: 6;
     -fx-padding: 8 15;
     -fx-cursor: hand;
@@ -175,15 +175,15 @@
    Table View (Dark Mode)
    ========================================================================== */
 .table-view {
-    -fx-background-color: #27273A;
-    -fx-border-color: #313244;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #181825;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 8 8 0 0;
 }
 
@@ -192,15 +192,15 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #A6ADC8;
+    -fx-text-fill: #475569;
     -fx-font-weight: bold;
     -fx-padding: 10;
     -fx-alignment: center;
 }
 
 .table-view .table-row-cell {
-    -fx-background-color: #27273A;
-    -fx-text-fill: #CDD6F4;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E293B;
     -fx-cell-size: 40px;
 }
 
@@ -214,12 +214,12 @@
 
 .table-view .table-row-cell:selected {
     -fx-background-color: rgba(108, 92, 231, 0.3);
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
 }
 
 .table-view .table-cell {
-    -fx-text-fill: #CDD6F4;
-    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.05) transparent;
+    -fx-text-fill: #1E293B;
+    -fx-border-color: transparent transparent rgba(0, 0, 0, 0.05) transparent;
     -fx-alignment: center;
 }
 
@@ -228,7 +228,7 @@
     -fx-background-color: transparent;
 }
 .table-view .thumb {
-    -fx-background-color: #45475a;
+    -fx-background-color: #CBD5E1;
     -fx-background-radius: 5;
 }
 
@@ -236,11 +236,11 @@
    Dashboard Styles
    ========================================================================== */
 .summary-card {
-    -fx-background-color: linear-gradient(to bottom right, #27273A, #181825);
+    -fx-background-color: linear-gradient(to bottom right, #FFFFFF, #FFFFFF);
     -fx-background-radius: 12;
     -fx-padding: 20;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 8);
-    -fx-border-color: #313244;
+    -fx-border-color: #E2E8F0;
     -fx-border-radius: 12;
     -fx-border-width: 1;
     -fx-alignment: center-left;
@@ -252,30 +252,30 @@
 }
 
 .card-title {
-    -fx-text-fill: #A6ADC8;
+    -fx-text-fill: #475569;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 10 0;
 }
 
 .card-value {
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
 }
 
 .chart-container {
-    -fx-background-color: #27273A;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
     -fx-padding: 20;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 8);
-    -fx-border-color: #313244;
+    -fx-border-color: #E2E8F0;
     -fx-border-radius: 12;
     -fx-border-width: 1;
 }
 
 .chart-title {
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 20 0;
@@ -296,26 +296,26 @@
     -fx-padding: 20px;
 }
 .chart-legend-item {
-    -fx-text-fill: #CDD6F4;
+    -fx-text-fill: #1E293B;
 }
 
 /* Make pie chart labels white */
 .chart-pie-label {
-    -fx-fill: white;
+    -fx-fill: #0F172A;
 }
 
 /* Form Sections */
 .section-subtitle {
-    -fx-text-fill: #A6ADC8;
+    -fx-text-fill: #475569;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
 .secondary-button {
-    -fx-background-color: #313244;
-    -fx-text-fill: #CDD6F4;
+    -fx-background-color: #E2E8F0;
+    -fx-text-fill: #1E293B;
 }
 
 .secondary-button:hover {
-    -fx-background-color: #45475a;
+    -fx-background-color: #CBD5E1;
 }
