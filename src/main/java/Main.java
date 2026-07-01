@@ -19,10 +19,15 @@ public class Main extends Application {
             System.err.println("Erreur de connexion à la base de données : " + e.getMessage());
         }
 
-        // Load MainView.fxml
-        Parent root = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
+        // Load LoginView.fxml initially
+        Parent root = FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
         primaryStage.setTitle("Car Rental System - Mini Projet Java");
+        
+        // Remove window default frame for a modern look (optional, but let's stick to standard for now, just styled)
+        // primaryStage.initStyle(javafx.stage.StageStyle.UNDECORATED); 
+        
         primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 

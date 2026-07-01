@@ -29,3 +29,11 @@ CREATE TABLE IF NOT EXISTS locations (
     FOREIGN KEY(voiture_id) REFERENCES voitures(id),
     FOREIGN KEY(client_id) REFERENCES clients(id)
 );
+
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+INSERT OR IGNORE INTO users (username, password) VALUES ('admin', 'admin');

@@ -26,6 +26,9 @@
                   <TableColumn fx:id="colCin" prefWidth="100.0" text="CIN" />
                   <TableColumn fx:id="colTelephone" prefWidth="100.0" text="Téléphone" />
               </columns>
+              <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+              </columnResizePolicy>
             </TableView>
             
             <VBox prefWidth="250.0" styleClass="form-vbox">

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="dashboardRoot" prefHeight="600.0" prefWidth="700.0" spacing="30.0" styleClass="main-content" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <Label styleClass="title-label" text="Tableau de Bord" />
+      
+      <!-- Summary Cards Row -->
+      <HBox spacing="20.0" alignment="CENTER_LEFT">
+         <children>
+            <!-- Card 1: Revenue -->
+            <VBox prefHeight="100.0" prefWidth="150.0" styleClass="summary-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="card-title" text="Revenu Total" />
+                  <Label fx:id="totalRevenueLabel" styleClass="card-value" text="0 MAD" />
+               </children>
+            </VBox>
+            
+            <!-- Card 2: Active Rentals -->
+            <VBox prefHeight="100.0" prefWidth="150.0" styleClass="summary-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="card-title" text="Locations Actives" />
+                  <Label fx:id="activeLocationsLabel" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+            
+            <!-- Card 3: Total Cars -->
+            <VBox prefHeight="100.0" prefWidth="150.0" styleClass="summary-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="card-title" text="Total Voitures" />
+                  <Label fx:id="totalVoituresLabel" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+            
+            <!-- Card 4: Total Clients -->
+            <VBox prefHeight="100.0" prefWidth="150.0" styleClass="summary-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="card-title" text="Total Clients" />
+                  <Label fx:id="totalClientsLabel" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      
+      <!-- Charts Row -->
+      <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <!-- Pie Chart for Car Status -->
+            <VBox styleClass="chart-container" HBox.hgrow="ALWAYS" alignment="CENTER">
+               <children>
+                  <Label styleClass="chart-title" text="Statut du Parc Automobile" />
+                  <PieChart fx:id="carStatusChart" legendSide="BOTTOM" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
