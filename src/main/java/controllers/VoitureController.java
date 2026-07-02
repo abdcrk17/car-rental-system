@@ -41,7 +41,7 @@ public class VoitureController {
 
     @FXML
     public void initialize() {
-        comboStatut.setItems(FXCollections.observableArrayList("Disponible", "Louée", "En maintenance"));
+        comboStatut.setItems(FXCollections.observableArrayList("Disponible", "En maintenance"));
         
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colMarque.setCellValueFactory(new PropertyValueFactory<>("marque"));

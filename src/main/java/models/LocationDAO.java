@@ -70,6 +70,24 @@ public class LocationDAO {
         return locations;
     }
 
+    public List<Location> getRecentLocations(int limit) throws SQLException {
+        List<Location> locations = new ArrayList<>();
+        String sql = "SELECT * FROM locations ORDER BY id DESC LIMIT ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, limit);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Location loc = extractLocationFromResultSet(rs);
+                    loc.setVoiture(voitureDAO.getById(loc.getVoitureId()));
+                    loc.setClient(clientDAO.getById(loc.getClientId()));
+                    locations.add(loc);
+                }
+            }
+        }
+        return locations;
+    }
+
     private Location extractLocationFromResultSet(ResultSet rs) throws SQLException {
         return new Location(
                 rs.getInt("id"),

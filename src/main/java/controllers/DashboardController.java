@@ -5,10 +5,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.SimpleStringProperty;
 import models.DashboardDAO;
+import models.Location;
+import models.LocationDAO;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 
 public class DashboardController {
 
@@ -24,11 +32,23 @@ public class DashboardController {
     private PieChart carStatusChart;
     @FXML
     private VBox dashboardRoot;
+    
+    @FXML private TableView<Location> recentLocationsTable;
+    @FXML private TableColumn<Location, String> colLocVoiture;
+    @FXML private TableColumn<Location, String> colLocClient;
+    @FXML private TableColumn<Location, LocalDate> colLocFin;
+    @FXML private TableColumn<Location, String> colLocStatut;
 
     private DashboardDAO dashboardDAO = new DashboardDAO();
+    private LocationDAO locationDAO = new LocationDAO();
 
     @FXML
     public void initialize() {
+        colLocVoiture.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVoiture().toString()));
+        colLocClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClient().toString()));
+        colLocFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+        colLocStatut.setCellValueFactory(new PropertyValueFactory<>("statut"));
+        
         loadStatistics();
     }
 
@@ -60,6 +80,10 @@ public class DashboardController {
             carStatusChart.setData(pieChartData);
             
             // Add a little animation by starting data values at 0 (optional, requires more complex thread logic, simple is fine for now)
+            
+            // Load Recent Locations
+            List<Location> recentLocs = locationDAO.getRecentLocations(5);
+            recentLocationsTable.setItems(FXCollections.observableArrayList(recentLocs));
             
         } catch (SQLException e) {
             System.err.println("Erreur lors du chargement des statistiques du dashboard: " + e.getMessage());
